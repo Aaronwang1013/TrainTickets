@@ -6,6 +6,7 @@ from selenium.common.exceptions import WebDriverException,NoSuchElementException
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.common.keys import Keys
+import datetime
 
 class Trainticket():
         def __init__(self,  ID , start , destination) -> None:
@@ -19,6 +20,14 @@ class Trainticket():
             獲取列車時刻資訊
             """
             pass
+        def calcluate_date(self):
+            today = datetime.datetime.now()
+            #開放購買四週後票
+            buy_ticket_date = today + datetime.timedelta(weeks = 4)
+            if buy_ticket_date.weekday() == 4:
+                buy_ticket_date = buy_ticket_date
+            else:
+                buy_ticket_date = buy_ticket_date + datetime.timedelta((4-buy_ticket_date.weekday()) % 7)
         def login_text(self , start , end , date , num):
             #open TRA webpage
             train = webdriver.Chrome()
